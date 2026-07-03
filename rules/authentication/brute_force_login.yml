@@ -1,0 +1,25 @@
+title: Multiple Failed Logins Followed by Success
+id: 3f1a2b3c-1234-4a5b-9c6d-7e8f9a0b1c2d
+status: experimental
+description: Detects a brute-force pattern where multiple failed authentication attempts from the same source are followed by a successful login, which may indicate credential guessing or password spraying.
+author: YourName
+date: 2026/07/03
+references:
+    - https://attack.mitre.org/techniques/T1110/
+tags:
+    - attack.credential_access
+    - attack.t1110
+logsource:
+    category: authentication
+    product: windows
+detection:
+    failed_login:
+        EventID: 4625
+    success_login:
+        EventID: 4624
+    timeframe: 5m
+    condition: failed_login | count() by SourceIp > 5 and success_login
+falsepositives:
+    - Legitimate users who mistype passwords multiple times
+    - Shared accounts with multiple simultaneous sessions
+level: high
