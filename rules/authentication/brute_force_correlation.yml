@@ -1,0 +1,14 @@
+title: Brute Force Login Correlation
+id: 8a2b3c4d-5678-4e9f-ab12-3c4d5e6f7a8b
+status: experimental
+description: Triggers when 5+ failed logins occur from the same source within 5 minutes, indicating a possible brute-force attempt.
+correlation:
+    type: event_count
+    rules:
+        - 3f1a2b3c-1234-4a5b-9c6d-7e8f9a0b1c2d
+    group-by:
+        - SourceIp
+    timespan: 5m
+    condition:
+        gte: 5
+level: high

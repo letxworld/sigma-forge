@@ -1,8 +1,8 @@
-title: Multiple Failed Logins Followed by Success
+title: Failed Windows Login Attempt
 id: 3f1a2b3c-1234-4a5b-9c6d-7e8f9a0b1c2d
 status: experimental
-description: Detects a brute-force pattern where multiple failed authentication attempts from the same source are followed by a successful login, which may indicate credential guessing or password spraying.
-author: YourName
+description: Detects a single failed Windows authentication attempt. Used as a base event for brute-force correlation.
+author: letxworld
 date: 2026/07/03
 references:
     - https://attack.mitre.org/techniques/T1110/
@@ -13,13 +13,9 @@ logsource:
     category: authentication
     product: windows
 detection:
-    failed_login:
+    selection:
         EventID: 4625
-    success_login:
-        EventID: 4624
-    timeframe: 5m
-    condition: failed_login | count() by SourceIp > 5 and success_login
+    condition: selection
 falsepositives:
-    - Legitimate users who mistype passwords multiple times
-    - Shared accounts with multiple simultaneous sessions
-level: high
+    - Legitimate users mistyping passwords
+level: low
