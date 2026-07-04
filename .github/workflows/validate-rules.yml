@@ -26,5 +26,5 @@ jobs:
       - name: Install Splunk backend plugin
         run: sigma plugin install splunk
 
-      - name: Validate rules by converting them
-        run: sigma convert -t splunk -p splunk_windows rules/authentication/
+      - name: Validate Sigma rule syntax
+        run: sigma check rules/
