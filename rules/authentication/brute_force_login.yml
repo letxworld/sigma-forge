@@ -3,7 +3,7 @@ id: 3f1a2b3c-1234-4a5b-9c6d-7e8f9a0b1c2d
 status: experimental
 description: Detects a single failed Windows authentication attempt. Used as a base event for brute-force correlation.
 author: letxworld
-date: 2026/07/03
+date: 2026/07/05
 references:
     - https://attack.mitre.org/techniques/T1110/
 tags:
