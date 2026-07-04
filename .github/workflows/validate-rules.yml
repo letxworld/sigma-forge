@@ -23,8 +23,5 @@ jobs:
       - name: Install sigma-cli
         run: pip install sigma-cli
 
-      - name: Install Splunk backend plugin
-        run: sigma plugin install splunk
-
       - name: Validate Sigma rule syntax
         run: sigma check rules/
