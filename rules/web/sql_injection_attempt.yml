@@ -1,0 +1,27 @@
+title: Potential SQL Injection Attempt in Web Request
+id: 0a1b2c3d-4e5f-4a6b-8c9d-1e2f3a4b5c6d
+status: experimental
+description: Detects common SQL injection patterns in web server request logs, such as attempts to comment out queries, use UNION-based extraction, or manipulate boolean logic.
+author: YourName
+date: 2026/07/05
+references:
+    - https://attack.mitre.org/techniques/T1190/
+tags:
+    - attack.initial_access
+    - attack.t1190
+logsource:
+    category: webserver
+detection:
+    selection:
+        cs-uri-query|contains:
+            - 'UNION SELECT'
+            - "' OR '1'='1"
+            - '--'
+            - 'DROP TABLE'
+            - 'xp_cmdshell'
+            - "' OR 1=1"
+    condition: selection
+falsepositives:
+    - Legitimate queries containing similar strings (rare, but possible in search fields)
+    - Security scanners/pentest tools run by your own team
+level: high
