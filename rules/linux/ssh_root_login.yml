@@ -1,0 +1,24 @@
+title: Direct SSH Root Login
+id: 2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e
+status: experimental
+description: Detects a direct SSH login as the root account. Best practice is to disable direct root SSH login and require sudo from a named account instead, so this should always be reviewed.
+author: Dipesh Pokhrel
+date: 2026/07/10
+references:
+    - https://attack.mitre.org/techniques/T1078/
+tags:
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1078
+logsource:
+    category: authentication
+    product: linux
+    service: sshd
+detection:
+    selection:
+        message|contains: 'Accepted'
+        message|contains: 'for root from'
+    condition: selection
+falsepositives:
+    - Emergency administrative access in environments that intentionally allow root login
+level: high

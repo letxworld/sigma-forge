@@ -1,0 +1,22 @@
+title: SSH Invalid User Enumeration Attempt
+id: 1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d
+status: experimental
+description: Detects repeated SSH login attempts using non-existent usernames from the same source, indicating username enumeration or automated account discovery.
+author: Dipesh Pokhrel
+date: 2026/07/10
+references:
+    - https://attack.mitre.org/techniques/T1589/
+tags:
+    - attack.reconnaissance
+    - attack.t1589
+logsource:
+    category: authentication
+    product: linux
+    service: sshd
+detection:
+    selection:
+        message|contains: 'Failed password for invalid user'
+    condition: selection
+falsepositives:
+    - Legitimate users mistyping their own username
+level: medium

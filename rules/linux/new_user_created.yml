@@ -1,0 +1,21 @@
+title: New Linux User Account Created
+id: 4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a
+status: experimental
+description: Detects creation of a new user account on a Linux system. Legitimate during provisioning, but suspicious if unexpected - attackers commonly create backdoor accounts to maintain access.
+author: Dipesh Pokhrel
+date: 2026/07/10
+references:
+    - https://attack.mitre.org/techniques/T1136/001/
+tags:
+    - attack.persistence
+    - attack.t1136.001
+logsource:
+    category: process_creation
+    product: linux
+detection:
+    selection:
+        message|contains: 'new user:'
+    condition: selection
+falsepositives:
+    - Legitimate account provisioning by system administrators
+level: medium

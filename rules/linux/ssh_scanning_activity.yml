@@ -1,0 +1,23 @@
+title: Possible SSH Scanning Activity
+id: 5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b
+status: experimental
+description: Detects a high number of SSH connections closed before authentication completes from the same source, a common signature of automated SSH scanners probing for open or misconfigured servers.
+author: Dipesh Pokhrel
+date: 2026/07/10
+references:
+    - https://attack.mitre.org/techniques/T1595/
+tags:
+    - attack.reconnaissance
+    - attack.t1595
+logsource:
+    category: authentication
+    product: linux
+    service: sshd
+detection:
+    selection:
+        message|contains: 'Connection closed'
+        message|contains: '[preauth]'
+    condition: selection
+falsepositives:
+    - Network monitoring tools or load balancers performing health checks
+level: low
